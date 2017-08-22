@@ -1,15 +1,15 @@
 defmodule AMQP.Mixfile do
   use Mix.Project
 
-  @version "1.0.0-pre.1"
+  @version "1.0.2"
 
   def project do
     [app: :amqp,
      version: @version,
-     elixir: "~> 1.0",
+     elixir: "~> 1.4",
      description: description(),
      package: package(),
-     source_url: "https://github.com/pma/amqp",
+     source_url: "https://github.com/ztran/amqp",
      deps: deps(),
      dialyzer: [
        ignore_warnings: "dialyzer.ignore-warnings",
@@ -18,7 +18,7 @@ defmodule AMQP.Mixfile do
      ],
      docs: [extras: ["README.md"], main: "readme",
             source_ref: "v#{@version}",
-            source_url: "https://github.com/pma/amqp"]]
+            source_url: "https://github.com/ztran/amqp"]]
   end
 
   def application do
@@ -27,20 +27,20 @@ defmodule AMQP.Mixfile do
 
   defp deps do
     [
-      {:amqp_client, "~> 3.6.8"},
-      {:rabbit_common, "~> 3.6.8"},
+      {:amqp_client, "~> 3.6.11"},
+      {:rabbit_common, "~> 3.6.11"},
 
-      {:earmark, "~> 1.0", only: :docs},
-      {:ex_doc, "~> 0.15", only: :docs},
-      {:inch_ex, "~> 0.5", only: :docs},
+      {:earmark, "~> 1.2", only: :docs},
+      {:ex_doc, "~> 0.16.3", only: :docs},
+      {:inch_ex, "~> 0.5.6", only: :docs},
 
-      {:dialyxir, "~> 0.5", only: :dev, runtime: false}
+      {:dialyxir, "~> 0.5.1", only: :dev, runtime: false}
     ]
   end
 
   defp description do
     """
-    Idiomatic Elixir client for RabbitMQ.
+        Idiomatic Elixir client for RabbitMQ.
     """
   end
 
