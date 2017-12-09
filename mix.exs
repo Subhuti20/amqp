@@ -32,8 +32,8 @@ defmodule AMQP.Mixfile do
 
     defp deps do
         [
-            {:amqp_client, "~> 3.7.0"},
-            {:rabbit_common, "~> 3.7.0"},
+            {:amqp_client, git: "https://github.com/rabbitmq/rabbitmq-erlang-client.git", tag: "v3.7.0", override: true},
+            {:rabbit_common, git: "https://github.com/rabbitmq/rabbitmq-common.git", tag: "v3.7.0", override: true},
             {:recon, "~> 2.3.2"},
 
             {:earmark, "~> 1.2", only: :docs},
