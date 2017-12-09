@@ -1,53 +1,63 @@
 defmodule AMQP.Mixfile do
-  use Mix.Project
+    use Mix.Project
 
-  @version "1.0.2"
+    @version "1.0.2"
 
-  def project do
-    [app: :amqp,
-     version: @version,
-     elixir: "~> 1.4",
-     description: description(),
-     package: package(),
-     source_url: "https://github.com/ztran/amqp",
-     deps: deps(),
-     dialyzer: [
-       ignore_warnings: "dialyzer.ignore-warnings",
-       plt_add_deps: :transitive,
-       flags: [:error_handling, :race_conditions, :no_opaque, :underspecs]
-     ],
-     docs: [extras: ["README.md"], main: "readme",
-            source_ref: "v#{@version}",
-            source_url: "https://github.com/ztran/amqp"]]
-  end
+    def project do
+        [
+            app: :amqp,
+            version: @version,
+            elixir: "~> 1.4",
+            description: description(),
+            package: package(),
+            source_url: "https://github.com/ztran/amqp",
+            deps: deps(),
+            dialyzer: [
+                ignore_warnings: "dialyzer.ignore-warnings",
+                plt_add_deps: :transitive,
+                flags: [:error_handling, :race_conditions, :no_opaque, :underspecs]
+            ],
+            docs: [
+                extras: ["README.md"],
+                main: "readme",
+                source_ref: "v#{@version}",
+                source_url: "https://github.com/ztran/amqp"
+            ]
+        ]
+    end
 
-  def application do
-    [applications: [:logger, :amqp_client]]
-  end
+    def application do
+        [applications: [:logger, :amqp_client]]
+    end
 
-  defp deps do
-    [
-      {:amqp_client, "~> 3.6.11"},
-      {:rabbit_common, "~> 3.6.11"},
+    defp deps do
+        [
+            {:amqp_client, "~> 3.7.0"},
+            {:rabbit_common, "~> 3.7.0"},
+            {:recon, "~> 2.3.2"},
 
-      {:earmark, "~> 1.2", only: :docs},
-      {:ex_doc, "~> 0.16.3", only: :docs},
-      {:inch_ex, "~> 0.5.6", only: :docs},
+            {:earmark, "~> 1.2", only: :docs},
+            {:ex_doc, "~> 0.16.3", only: :docs},
+            {:inch_ex, "~> 0.5.6", only: :docs},
 
-      {:dialyxir, "~> 0.5.1", only: :dev, runtime: false}
-    ]
-  end
+            {:dialyxir, "~> 0.5.1", only: :dev, runtime: false}
+        ]
+    end
 
-  defp description do
-    """
-        Idiomatic Elixir client for RabbitMQ.
-    """
-  end
+    defp description do
+        """
+            Idiomatic Elixir client for RabbitMQ.
+        """
+    end
 
-  defp package do
-    [files: ["lib", "mix.exs", "README.md", "LICENSE"],
-     maintainers: ["Paulo Almeida", "Eduardo Gurgel"],
-     licenses: ["MIT"],
-     links: %{"GitHub" => "https://github.com/pma/amqp"}]
-  end
+    defp package do
+        [
+            files: ["lib", "mix.exs", "README.md", "LICENSE"],
+            maintainers: ["Paulo Almeida", "Eduardo Gurgel"],
+            licenses: ["MIT"],
+            links: %{
+                "GitHub" => "https://github.com/pma/amqp"
+            }
+        ]
+    end
 end
