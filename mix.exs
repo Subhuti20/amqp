@@ -32,16 +32,15 @@ defmodule AMQP.Mixfile do
 
     defp deps do
         [
-            {:amqp_client, git: "https://github.com/rabbitmq/rabbitmq-erlang-client.git", tag: "v3.7.0", override: true},
-            {:rabbit_common, git: "https://github.com/rabbitmq/rabbitmq-common.git", tag: "v3.7.0", override: true},
-            {:ranch_proxy_protocol, "~> 1.4"},
-            {:recon, "~> 2.3.2"},
+            {:amqp_client, "~> 3.6"},
+            {:rabbit_common, "~> 3.6"},
 
-            {:earmark, "~> 1.2", only: :docs},
-            {:ex_doc, "~> 0.16.3", only: :docs},
-            {:inch_ex, "~> 0.5.6", only: :docs},
+#            {:recon, "~> 2.3.2"},
+#            {:earmark, "~> 1.2", only: :docs},
+#            {:ex_doc, "~> 0.16.3", only: :docs},
+#            {:inch_ex, "~> 0.5.6", only: :docs},
 
-            {:dialyxir, "~> 0.5.1", only: :dev, runtime: false}
+#            {:dialyxir, "~> 0.5.1", only: :dev, runtime: false}
         ]
     end
 
