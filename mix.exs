@@ -32,15 +32,8 @@ defmodule AMQP.Mixfile do
 
     defp deps do
         [
-            {:amqp_client, "~> 3.6"},
-            {:rabbit_common, "~> 3.6"},
-
-#            {:recon, "~> 2.3.2"},
-#            {:earmark, "~> 1.2", only: :docs},
-#            {:ex_doc, "~> 0.16.3", only: :docs},
-#            {:inch_ex, "~> 0.5.6", only: :docs},
-
-#            {:dialyxir, "~> 0.5.1", only: :dev, runtime: false}
+            {:amqp_client, "~> 3.7"},
+            {:rabbit_common, "~> 3.7"},
         ]
     end
 
