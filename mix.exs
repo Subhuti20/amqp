@@ -10,7 +10,7 @@ defmodule AMQP.Mixfile do
             elixir: "~> 1.5",
             description: description(),
             package: package(),
-            source_url: "https://github.com/ztran/amqp",
+            source_url: "https://github.com/undefin00/amqp",
             deps: deps(),
             dialyzer: [
                 ignore_warnings: "dialyzer.ignore-warnings",
