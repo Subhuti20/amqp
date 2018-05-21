@@ -32,8 +32,8 @@ defmodule AMQP.Mixfile do
 
     defp deps do
         [
-            {:amqp_client, "~> 3.7.3"},
-            {:rabbit_common, "~> 3.7.3"},
+            {:amqp_client, "~> 3.7.5"},
+            {:rabbit_common, "~> 3.7.5"},
         ]
     end
 
