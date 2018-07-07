@@ -7,7 +7,7 @@ defmodule AMQP.Mixfile do
         [
             app: :amqp,
             version: @version,
-            elixir: "~> 1.5",
+            elixir: "~> 1.6",
             description: description(),
             package: package(),
             source_url: "https://github.com/undefin00/amqp",
@@ -34,6 +34,12 @@ defmodule AMQP.Mixfile do
         [
             {:amqp_client, "~> 3.7.7"},
             {:rabbit_common, "~> 3.7.7"},
+            {
+                :ranch_proxy_protocol,
+                git: "https://github.com/heroku/ranch_proxy_protocol.git",
+                branch: "master",
+                override: true
+            },
         ]
     end
 

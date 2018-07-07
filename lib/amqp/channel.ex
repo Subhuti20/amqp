@@ -11,7 +11,7 @@ defmodule AMQP.Channel do
     @doc """
     Opens a new Channel in a previously opened Connection.
     """
-    @spec open(Connection.t) :: {:ok, Channel.t} | any
+    @spec open(Connection.t) :: {:ok, Channel.t} | {:error, any}
     def open(%Connection{pid: pid} = conn) do
         case :amqp_connection.open_channel(pid) do
             {:ok, chan_pid} -> {:ok, %Channel{conn: conn, pid: chan_pid}}
@@ -22,7 +22,7 @@ defmodule AMQP.Channel do
     @doc """
     Closes an open Channel.
     """
-    @spec close(Channel.t) :: :ok | {:error, any}
+    @spec close(Channel.t) :: :ok | {:error, Basic.error}
     def close(%Channel{pid: pid}) do
         try do
             if Process.alive?(pid) do
@@ -34,8 +34,8 @@ defmodule AMQP.Channel do
                 :ok
             end
         catch
-        _, _ ->
-            {:error, :dead}
+            _, _ ->
+                {:error, :dead}
         end
     end
 end

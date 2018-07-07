@@ -8,14 +8,9 @@ Simple Elixir wrapper for the Erlang RabbitMQ client.
 
 The API is based on Langohr, a Clojure client for RabbitMQ.
 
-## WARNING - this branch is under the development
+## Migration from 0.X to 1.0
 
-We are preparing 1.0.0 release which will have some backward imcompatibilities
-against the current stable version - 0.3.x.
-
-If you are looking for a document for 0.3.x please visit to [v0.3 branch](https://github.com/pma/amqp/tree/v0.3).
-
-If you want to check the plan and progress for 1.0.0 please check out [this github issue](https://github.com/pma/amqp/issues/69).
+If you use amqp 0.X and plan to migrate to 1.0 please read our [migration guide](https://github.com/pma/amqp/wiki/Upgrade-from-0.X-to-1.0).
 
 ## Usage
 
@@ -24,7 +19,7 @@ Add AMQP as a dependency in your `mix.exs` file.
 
 ```elixir
 def deps do
-  [{:amqp, "~> 1.0.0-pre.2"}]
+  [{:amqp, "~> 1.0"}]
 end
 ```
 
@@ -82,7 +77,7 @@ defmodule Consumer do
     setup_queue(chan)
 
     # Limit unacknowledged messages to 10
-    Basic.qos(chan, prefetch_count: 10)
+    :ok = Basic.qos(chan, prefetch_count: 10)
     # Register the GenServer process as a consumer
     {:ok, _consumer_tag} = Basic.consume(chan, @queue)
     {:ok, chan}
@@ -109,22 +104,26 @@ defmodule Consumer do
   end
 
   defp setup_queue(chan) do
-    Queue.declare(chan, @queue_error, durable: true)
+    {:ok, _} = Queue.declare(chan, @queue_error, durable: true)
     # Messages that cannot be delivered to any consumer in the main queue will be routed to the error queue
-    Queue.declare(chan, @queue, durable: true,
-                                arguments: [{"x-dead-letter-exchange", :longstr, ""},
-                                            {"x-dead-letter-routing-key", :longstr, @queue_error}])
-    Exchange.fanout(chan, @exchange, durable: true)
-    Queue.bind(chan, @queue, @exchange)
+    {:ok, _} = Queue.declare(chan, @queue,
+                             durable: true,
+                             arguments: [
+                               {"x-dead-letter-exchange", :longstr, ""},
+                               {"x-dead-letter-routing-key", :longstr, @queue_error}
+                             ]
+                            )
+    :ok = Exchange.fanout(chan, @exchange, durable: true)
+    :ok = Queue.bind(chan, @queue, @exchange)
   end
 
   defp consume(channel, tag, redelivered, payload) do
     number = String.to_integer(payload)
     if number <= 10 do
-      Basic.ack channel, tag
+      :ok = Basic.ack channel, tag
       IO.puts "Consumed a #{number}."
     else
-      Basic.reject channel, tag, requeue: false
+      :ok = Basic.reject channel, tag, requeue: false
       IO.puts "#{number} is too big and was rejected."
     end
 
@@ -137,7 +136,7 @@ defmodule Consumer do
     # Make sure you call ack, nack or reject otherwise comsumer will stop
     # receiving messages.
     exception ->
-      Basic.reject channel, tag, requeue: not redelivered
+      :ok = Basic.reject channel, tag, requeue: not redelivered
       IO.puts "Error converting #{payload} to integer"
   end
 end
