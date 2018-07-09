@@ -114,10 +114,10 @@ defmodule AMQP.Connection do
     Closes an open Connection.
     """
     @spec close(t) :: :ok | {:error, any}
-    def close(conn) do
+    def close(%Connection{pid: pid}) do
         try do
-            if Process.alive?(conn.pid) do
-                case :amqp_connection.close(conn.pid) do
+            if is_pid(pid) and Process.alive?(pid) do
+                case :amqp_connection.close(pid) do
                     :ok -> :ok
                     error -> {:error, error}
                 end
@@ -128,6 +128,10 @@ defmodule AMQP.Connection do
             _, _ ->
                 {:error, :dead}
         end
+    end
+
+    def close(_) do
+        {:error, :dead}
     end
 
     defp do_open(amqp_params) do

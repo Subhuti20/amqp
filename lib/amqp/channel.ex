@@ -25,7 +25,7 @@ defmodule AMQP.Channel do
     @spec close(Channel.t) :: :ok | {:error, Basic.error}
     def close(%Channel{pid: pid}) do
         try do
-            if Process.alive?(pid) do
+            if is_pid(pid) and Process.alive?(pid) do
                 case :amqp_channel.close(pid) do
                     :ok -> :ok
                     error -> {:error, error}
@@ -37,5 +37,9 @@ defmodule AMQP.Channel do
             _, _ ->
                 {:error, :dead}
         end
+    end
+
+    def close(_) do
+        {:erro, :dead}
     end
 end
