@@ -7,7 +7,7 @@ defmodule AMQP.Mixfile do
     [
       app: :amqp,
       version: @version,
-      elixir: "~> 1.6",
+      elixir: "~> 1.7",
       description: description(),
       package: package(),
       source_url: "https://github.com/undefin00/amqp",
@@ -32,9 +32,9 @@ defmodule AMQP.Mixfile do
 
   defp deps do
     [
-      {:amqp_client, "~> 3.7.7"},
-      {:rabbit_common, "~> 3.7.7"},
-      {:ranch, "~> 1.6", override: true},
+      {:amqp_client, "~> 3.8"},
+      {:rabbit_common, "~> 3.8"},
+      {:ranch, "~> 1.7", override: true},
       {:ranch_proxy_protocol, "~> 2.1", override: true},
     ]
   end
