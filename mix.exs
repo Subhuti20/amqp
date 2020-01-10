@@ -34,8 +34,7 @@ defmodule AMQP.Mixfile do
     [
       {:amqp_client, "~> 3.8"},
       {:rabbit_common, "~> 3.8"},
-      {:ranch, "~> 1.7", override: true},
-      {:ranch_proxy_protocol, "~> 2.1", override: true},
+      {:ranch, "~> 1.7.1", override: true},
     ]
   end
 
